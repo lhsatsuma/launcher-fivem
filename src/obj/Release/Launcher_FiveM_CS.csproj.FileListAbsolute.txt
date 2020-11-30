@@ -1,0 +1,11 @@
+E:\Codigos\repos\Launcher_FiveM_CS\bin\Release\Launcher_FiveM.exe.config
+E:\Codigos\repos\Launcher_FiveM_CS\bin\Release\Launcher_FiveM.exe
+E:\Codigos\repos\Launcher_FiveM_CS\bin\Release\Launcher_FiveM.pdb
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.ConfigForm.resources
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.LauncherForm.resources
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.Properties.Resources.resources
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.csproj.GenerateResource.cache
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.csproj.CoreCompileInputs.cache
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM.exe
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM.pdb
+E:\Codigos\repos\Launcher_FiveM_CS\obj\Release\Launcher_FiveM_CS.csprojAssemblyReference.cache
