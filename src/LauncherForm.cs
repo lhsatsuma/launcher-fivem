@@ -153,7 +153,7 @@ namespace Launcher_FiveM_CS
                         SetLoadingBar(90);
                         this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
                         await Task.Delay(800);
-                        System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3+"/?nickname=Launcher_FiveM_User&password="+ServerData.Pass_TS3);
+                        System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3+"/?nickname=LauncherFiveM&password="+ServerData.Pass_TS3);
                     }
                     SetLoadingBar(100);
                     await Task.Delay(1000);
