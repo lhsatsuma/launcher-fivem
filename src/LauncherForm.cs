@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using System.Threading;
 using System.IO;
 using System.Collections;
+using System.Net.Http;
 namespace Launcher_FiveM_CS
 {
     public partial class LauncherForm : Form
@@ -265,5 +266,64 @@ namespace Launcher_FiveM_CS
 
             MessageBox.Show(msg, "Sobre", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private async void Combo_ListServers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idx_combo = this.Combo_ListServers.SelectedIndex;
+            if (idx_combo != -1)
+            {
+                var ServerData = this.ServerList.ServerCfgs[idx_combo];
+                if (!ServerData.IP.Contains(':'))
+                {
+                    ServerData.IP += ":30120";
+                }
+                var response_json = "";
+                this.PlayersOnline.Text = "Players Online: .....";
+                try
+                {
+                    var client = new HttpClient();
+
+                    // Create the HttpContent for the form to be posted.
+                    var requestContent = new FormUrlEncodedContent(new[] {
+                        new KeyValuePair<string, string>("text", "This is a block of text"),
+                    });
+
+                    // Get the response.
+                    HttpResponseMessage response = await client.PostAsync("http://" + ServerData.IP + "/players.json", requestContent);
+
+                    // Get the response content.
+                    HttpContent responseContent = response.Content;
+
+                    // Get the stream of the content.
+                    using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
+                    {
+                        // Write the output.
+                        response_json += await reader.ReadToEndAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    this.PlayersOnline.Text = "Players Online: 0 (Erro)";
+                }
+                if(response_json != "")
+                {
+                    var decoded = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(response_json);
+                    this.PlayersOnline.Text = "Players Online: " + decoded.Count;
+                }
+                this.PlayersOnline.Refresh();
+            }
+        }
+    }
+    public class PlayerOnline
+    {
+        public string endpoint { get; set; }
+        public string name { get; set; }
+        public string id { get; set; }
+        public string ping { get; set; }
+    }
+    public class PlayersOnline
+    {
+        public List<PlayerOnline> Players { get; set; }
     }
 }

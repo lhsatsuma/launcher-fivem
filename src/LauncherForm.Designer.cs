@@ -40,6 +40,7 @@ namespace Launcher_FiveM_CS
             this.LoadingBar = new System.Windows.Forms.ProgressBar();
             this.Lbl_LoadingBar = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.PlayersOnline = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Text_Log
@@ -49,7 +50,7 @@ namespace Launcher_FiveM_CS
             this.Text_Log.Name = "Text_Log";
             this.Text_Log.ReadOnly = true;
             this.Text_Log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Text_Log.Size = new System.Drawing.Size(329, 187);
+            this.Text_Log.Size = new System.Drawing.Size(329, 200);
             this.Text_Log.TabIndex = 0;
             // 
             // Btn_ClrCache
@@ -115,9 +116,9 @@ namespace Launcher_FiveM_CS
             this.Btn_Play.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Play.ForeColor = System.Drawing.Color.White;
-            this.Btn_Play.Location = new System.Drawing.Point(360, 235);
+            this.Btn_Play.Location = new System.Drawing.Point(360, 257);
             this.Btn_Play.Name = "Btn_Play";
-            this.Btn_Play.Size = new System.Drawing.Size(228, 75);
+            this.Btn_Play.Size = new System.Drawing.Size(228, 66);
             this.Btn_Play.TabIndex = 5;
             this.Btn_Play.Text = "Jogar";
             this.Btn_Play.UseVisualStyleBackColor = false;
@@ -133,6 +134,7 @@ namespace Launcher_FiveM_CS
             this.Combo_ListServers.Name = "Combo_ListServers";
             this.Combo_ListServers.Size = new System.Drawing.Size(223, 26);
             this.Combo_ListServers.TabIndex = 6;
+            this.Combo_ListServers.SelectedIndexChanged += new System.EventHandler(this.Combo_ListServers_SelectedIndexChanged);
             // 
             // LoadingBar
             // 
@@ -153,6 +155,17 @@ namespace Launcher_FiveM_CS
             this.Lbl_LoadingBar.Text = "...";
             this.Lbl_LoadingBar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // PlayersOnline
+            // 
+            this.PlayersOnline.BackColor = System.Drawing.Color.Silver;
+            this.PlayersOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PlayersOnline.ForeColor = System.Drawing.Color.Black;
+            this.PlayersOnline.Location = new System.Drawing.Point(367, 236);
+            this.PlayersOnline.Name = "PlayersOnline";
+            this.PlayersOnline.Size = new System.Drawing.Size(221, 18);
+            this.PlayersOnline.TabIndex = 9;
+            this.PlayersOnline.Text = "Players Online: 0";
+            // 
             // LauncherForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,6 +174,7 @@ namespace Launcher_FiveM_CS
             this.BackgroundImage = global::Launcher_FiveM_CS.Properties.Resources.bg3;
             this.ClientSize = new System.Drawing.Size(621, 368);
             this.ControlBox = false;
+            this.Controls.Add(this.PlayersOnline);
             this.Controls.Add(this.Lbl_LoadingBar);
             this.Controls.Add(this.LoadingBar);
             this.Controls.Add(this.Combo_ListServers);
@@ -194,6 +208,7 @@ namespace Launcher_FiveM_CS
         private System.Windows.Forms.ProgressBar LoadingBar;
         private System.Windows.Forms.Label Lbl_LoadingBar;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label PlayersOnline;
     }
 }
 

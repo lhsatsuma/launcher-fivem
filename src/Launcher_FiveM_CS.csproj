@@ -7,7 +7,7 @@
     <ProjectGuid>{8F66A910-A884-48F3-9D6E-C6F04B48D0D9}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Launcher_FiveM_CS</RootNamespace>
-    <AssemblyName>Launcher_FiveM</AssemblyName>
+    <AssemblyName>Launcher FiveM</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

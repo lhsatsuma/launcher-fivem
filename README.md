@@ -8,3 +8,4 @@ Discord: BigBangDBIKE#7340
 - Limpeza de cache automática no FiveM.
 - Adicionar vários servidores para conexão.
 - Inicialização automática do FiveM e TeamSpeak 3.
+- Contagem de Players Online no servidor.
