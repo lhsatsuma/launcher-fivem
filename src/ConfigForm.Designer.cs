@@ -33,7 +33,6 @@ namespace Launcher_FiveM_CS
             this.Btn_NextStep = new System.Windows.Forms.Button();
             this.Lbl_Title = new System.Windows.Forms.Label();
             this.Lbl_Spacer = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.Input_AddServer = new System.Windows.Forms.TextBox();
             this.Btn_AddServer = new System.Windows.Forms.Button();
             this.Combo_ServerList = new System.Windows.Forms.ComboBox();
@@ -50,6 +49,7 @@ namespace Launcher_FiveM_CS
             this.Check_Fav = new System.Windows.Forms.CheckBox();
             this.Lbl_PassTS3 = new System.Windows.Forms.Label();
             this.Input_PassTS3 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Btn_NextStep
@@ -84,20 +84,9 @@ namespace Launcher_FiveM_CS
             this.Lbl_Spacer.BackColor = System.Drawing.Color.Transparent;
             this.Lbl_Spacer.Location = new System.Drawing.Point(9, 45);
             this.Lbl_Spacer.Name = "Lbl_Spacer";
-            this.Lbl_Spacer.Size = new System.Drawing.Size(600, 19);
+            this.Lbl_Spacer.Size = new System.Drawing.Size(617, 19);
             this.Lbl_Spacer.TabIndex = 3;
             this.Lbl_Spacer.Text = "_________________________________________________________________________________" +
-    "__________________";
-            // 
-            // label1
-            // 
-            this.label1.AccessibleRole = System.Windows.Forms.AccessibleRole.Separator;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(14, 129);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(600, 19);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "_________________________________________________________________________________" +
     "__________________";
             // 
             // Input_AddServer
@@ -188,7 +177,7 @@ namespace Launcher_FiveM_CS
             this.Lbl_IP.BackColor = System.Drawing.Color.Transparent;
             this.Lbl_IP.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_IP.ForeColor = System.Drawing.Color.White;
-            this.Lbl_IP.Location = new System.Drawing.Point(18, 203);
+            this.Lbl_IP.Location = new System.Drawing.Point(20, 228);
             this.Lbl_IP.Name = "Lbl_IP";
             this.Lbl_IP.Size = new System.Drawing.Size(111, 16);
             this.Lbl_IP.TabIndex = 13;
@@ -196,14 +185,14 @@ namespace Launcher_FiveM_CS
             // 
             // Input_IP
             // 
-            this.Input_IP.Location = new System.Drawing.Point(21, 223);
+            this.Input_IP.Location = new System.Drawing.Point(23, 248);
             this.Input_IP.Name = "Input_IP";
             this.Input_IP.Size = new System.Drawing.Size(328, 20);
             this.Input_IP.TabIndex = 14;
             // 
             // Input_IPTS3
             // 
-            this.Input_IPTS3.Location = new System.Drawing.Point(21, 305);
+            this.Input_IPTS3.Location = new System.Drawing.Point(23, 341);
             this.Input_IPTS3.Name = "Input_IPTS3";
             this.Input_IPTS3.Size = new System.Drawing.Size(328, 20);
             this.Input_IPTS3.TabIndex = 16;
@@ -214,7 +203,7 @@ namespace Launcher_FiveM_CS
             this.Lbl_IPTS3.BackColor = System.Drawing.Color.Transparent;
             this.Lbl_IPTS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_IPTS3.ForeColor = System.Drawing.Color.White;
-            this.Lbl_IPTS3.Location = new System.Drawing.Point(18, 285);
+            this.Lbl_IPTS3.Location = new System.Drawing.Point(20, 321);
             this.Lbl_IPTS3.Name = "Lbl_IPTS3";
             this.Lbl_IPTS3.Size = new System.Drawing.Size(153, 16);
             this.Lbl_IPTS3.TabIndex = 15;
@@ -226,7 +215,7 @@ namespace Launcher_FiveM_CS
             this.Check_UseTS3.BackColor = System.Drawing.Color.Transparent;
             this.Check_UseTS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Check_UseTS3.ForeColor = System.Drawing.Color.White;
-            this.Check_UseTS3.Location = new System.Drawing.Point(21, 256);
+            this.Check_UseTS3.Location = new System.Drawing.Point(23, 292);
             this.Check_UseTS3.Name = "Check_UseTS3";
             this.Check_UseTS3.Size = new System.Drawing.Size(183, 20);
             this.Check_UseTS3.TabIndex = 17;
@@ -252,7 +241,7 @@ namespace Launcher_FiveM_CS
             this.Check_Fav.BackColor = System.Drawing.Color.Transparent;
             this.Check_Fav.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Check_Fav.ForeColor = System.Drawing.Color.White;
-            this.Check_Fav.Location = new System.Drawing.Point(21, 177);
+            this.Check_Fav.Location = new System.Drawing.Point(21, 191);
             this.Check_Fav.Name = "Check_Fav";
             this.Check_Fav.Size = new System.Drawing.Size(147, 20);
             this.Check_Fav.TabIndex = 1000;
@@ -265,7 +254,7 @@ namespace Launcher_FiveM_CS
             this.Lbl_PassTS3.BackColor = System.Drawing.Color.Transparent;
             this.Lbl_PassTS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_PassTS3.ForeColor = System.Drawing.Color.White;
-            this.Lbl_PassTS3.Location = new System.Drawing.Point(355, 306);
+            this.Lbl_PassTS3.Location = new System.Drawing.Point(357, 342);
             this.Lbl_PassTS3.Name = "Lbl_PassTS3";
             this.Lbl_PassTS3.Size = new System.Drawing.Size(56, 16);
             this.Lbl_PassTS3.TabIndex = 1001;
@@ -273,10 +262,21 @@ namespace Launcher_FiveM_CS
             // 
             // Input_PassTS3
             // 
-            this.Input_PassTS3.Location = new System.Drawing.Point(417, 306);
+            this.Input_PassTS3.Location = new System.Drawing.Point(419, 342);
             this.Input_PassTS3.Name = "Input_PassTS3";
             this.Input_PassTS3.Size = new System.Drawing.Size(144, 20);
             this.Input_PassTS3.TabIndex = 1002;
+            // 
+            // label1
+            // 
+            this.label1.AccessibleRole = System.Windows.Forms.AccessibleRole.Separator;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(18, 130);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(617, 19);
+            this.label1.TabIndex = 1003;
+            this.label1.Text = "_________________________________________________________________________________" +
+    "__________________";
             // 
             // ConfigForm
             // 
@@ -284,8 +284,9 @@ namespace Launcher_FiveM_CS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::Launcher_FiveM_CS.Properties.Resources.bg2;
-            this.ClientSize = new System.Drawing.Size(621, 368);
+            this.ClientSize = new System.Drawing.Size(638, 408);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.Input_PassTS3);
             this.Controls.Add(this.Lbl_PassTS3);
             this.Controls.Add(this.Check_Fav);
@@ -302,7 +303,6 @@ namespace Launcher_FiveM_CS
             this.Controls.Add(this.Combo_ServerList);
             this.Controls.Add(this.Btn_AddServer);
             this.Controls.Add(this.Input_AddServer);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.Lbl_Spacer);
             this.Controls.Add(this.Btn_NextStep);
             this.Controls.Add(this.Lbl_Title);
@@ -322,7 +322,6 @@ namespace Launcher_FiveM_CS
         private System.Windows.Forms.Button Btn_NextStep;
         private System.Windows.Forms.Label Lbl_Title;
         private System.Windows.Forms.Label Lbl_Spacer;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox Input_AddServer;
         private System.Windows.Forms.Button Btn_AddServer;
         private System.Windows.Forms.ComboBox Combo_ServerList;
@@ -339,6 +338,7 @@ namespace Launcher_FiveM_CS
         private System.Windows.Forms.CheckBox Check_Fav;
         private System.Windows.Forms.Label Lbl_PassTS3;
         private System.Windows.Forms.TextBox Input_PassTS3;
+        private System.Windows.Forms.Label label1;
     }
 }
 

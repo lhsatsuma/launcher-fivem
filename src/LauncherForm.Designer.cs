@@ -41,11 +41,13 @@ namespace Launcher_FiveM_CS
             this.Lbl_LoadingBar = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.PlayersOnline = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // Text_Log
             // 
-            this.Text_Log.Location = new System.Drawing.Point(25, 123);
+            this.Text_Log.Location = new System.Drawing.Point(38, 123);
             this.Text_Log.Multiline = true;
             this.Text_Log.Name = "Text_Log";
             this.Text_Log.ReadOnly = true;
@@ -59,7 +61,7 @@ namespace Launcher_FiveM_CS
             this.Btn_ClrCache.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_ClrCache.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_ClrCache.ForeColor = System.Drawing.Color.White;
-            this.Btn_ClrCache.Location = new System.Drawing.Point(365, 123);
+            this.Btn_ClrCache.Location = new System.Drawing.Point(378, 123);
             this.Btn_ClrCache.Name = "Btn_ClrCache";
             this.Btn_ClrCache.Size = new System.Drawing.Size(107, 34);
             this.Btn_ClrCache.TabIndex = 1;
@@ -73,7 +75,7 @@ namespace Launcher_FiveM_CS
             this.Btn_Cfg.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_Cfg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Cfg.ForeColor = System.Drawing.Color.White;
-            this.Btn_Cfg.Location = new System.Drawing.Point(478, 123);
+            this.Btn_Cfg.Location = new System.Drawing.Point(491, 123);
             this.Btn_Cfg.Name = "Btn_Cfg";
             this.Btn_Cfg.Size = new System.Drawing.Size(110, 34);
             this.Btn_Cfg.TabIndex = 2;
@@ -87,7 +89,7 @@ namespace Launcher_FiveM_CS
             this.Btn_About.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_About.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_About.ForeColor = System.Drawing.Color.White;
-            this.Btn_About.Location = new System.Drawing.Point(365, 163);
+            this.Btn_About.Location = new System.Drawing.Point(378, 163);
             this.Btn_About.Name = "Btn_About";
             this.Btn_About.Size = new System.Drawing.Size(107, 34);
             this.Btn_About.TabIndex = 3;
@@ -101,7 +103,7 @@ namespace Launcher_FiveM_CS
             this.Btn_ExitApp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_ExitApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_ExitApp.ForeColor = System.Drawing.Color.White;
-            this.Btn_ExitApp.Location = new System.Drawing.Point(478, 163);
+            this.Btn_ExitApp.Location = new System.Drawing.Point(491, 163);
             this.Btn_ExitApp.Name = "Btn_ExitApp";
             this.Btn_ExitApp.Size = new System.Drawing.Size(110, 34);
             this.Btn_ExitApp.TabIndex = 4;
@@ -116,9 +118,9 @@ namespace Launcher_FiveM_CS
             this.Btn_Play.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_Play.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Play.ForeColor = System.Drawing.Color.White;
-            this.Btn_Play.Location = new System.Drawing.Point(360, 257);
+            this.Btn_Play.Location = new System.Drawing.Point(378, 257);
             this.Btn_Play.Name = "Btn_Play";
-            this.Btn_Play.Size = new System.Drawing.Size(228, 66);
+            this.Btn_Play.Size = new System.Drawing.Size(223, 65);
             this.Btn_Play.TabIndex = 5;
             this.Btn_Play.Text = "Jogar";
             this.Btn_Play.UseVisualStyleBackColor = false;
@@ -130,7 +132,7 @@ namespace Launcher_FiveM_CS
             this.Combo_ListServers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Combo_ListServers.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Combo_ListServers.FormattingEnabled = true;
-            this.Combo_ListServers.Location = new System.Drawing.Point(365, 203);
+            this.Combo_ListServers.Location = new System.Drawing.Point(378, 203);
             this.Combo_ListServers.Name = "Combo_ListServers";
             this.Combo_ListServers.Size = new System.Drawing.Size(223, 26);
             this.Combo_ListServers.TabIndex = 6;
@@ -138,7 +140,7 @@ namespace Launcher_FiveM_CS
             // 
             // LoadingBar
             // 
-            this.LoadingBar.Location = new System.Drawing.Point(76, 349);
+            this.LoadingBar.Location = new System.Drawing.Point(89, 349);
             this.LoadingBar.Name = "LoadingBar";
             this.LoadingBar.Size = new System.Drawing.Size(477, 17);
             this.LoadingBar.TabIndex = 7;
@@ -148,7 +150,7 @@ namespace Launcher_FiveM_CS
             this.Lbl_LoadingBar.BackColor = System.Drawing.Color.Transparent;
             this.Lbl_LoadingBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_LoadingBar.ForeColor = System.Drawing.Color.White;
-            this.Lbl_LoadingBar.Location = new System.Drawing.Point(76, 333);
+            this.Lbl_LoadingBar.Location = new System.Drawing.Point(89, 333);
             this.Lbl_LoadingBar.Name = "Lbl_LoadingBar";
             this.Lbl_LoadingBar.Size = new System.Drawing.Size(477, 13);
             this.Lbl_LoadingBar.TabIndex = 8;
@@ -160,11 +162,22 @@ namespace Launcher_FiveM_CS
             this.PlayersOnline.BackColor = System.Drawing.Color.Silver;
             this.PlayersOnline.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PlayersOnline.ForeColor = System.Drawing.Color.Black;
-            this.PlayersOnline.Location = new System.Drawing.Point(367, 236);
+            this.PlayersOnline.Location = new System.Drawing.Point(378, 236);
             this.PlayersOnline.Name = "PlayersOnline";
-            this.PlayersOnline.Size = new System.Drawing.Size(221, 18);
+            this.PlayersOnline.Size = new System.Drawing.Size(223, 18);
             this.PlayersOnline.TabIndex = 9;
             this.PlayersOnline.Text = "Players Online: 0";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Launcher_FiveM_CS.Properties.Resources.circle_cropped;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 10;
+            this.pictureBox1.TabStop = false;
             // 
             // LauncherForm
             // 
@@ -172,8 +185,9 @@ namespace Launcher_FiveM_CS
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImage = global::Launcher_FiveM_CS.Properties.Resources.bg3;
-            this.ClientSize = new System.Drawing.Size(621, 368);
+            this.ClientSize = new System.Drawing.Size(638, 408);
             this.ControlBox = false;
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.PlayersOnline);
             this.Controls.Add(this.Lbl_LoadingBar);
             this.Controls.Add(this.LoadingBar);
@@ -191,6 +205,7 @@ namespace Launcher_FiveM_CS
             this.Text = "Launcher FiveM";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.LauncherForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,6 +224,7 @@ namespace Launcher_FiveM_CS
         private System.Windows.Forms.Label Lbl_LoadingBar;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label PlayersOnline;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
