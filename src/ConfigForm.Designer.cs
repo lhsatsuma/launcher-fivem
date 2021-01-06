@@ -50,6 +50,7 @@ namespace Launcher_FiveM_CS
             this.Lbl_PassTS3 = new System.Windows.Forms.Label();
             this.Input_PassTS3 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.Btn_Reorder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // Btn_NextStep
@@ -278,6 +279,20 @@ namespace Launcher_FiveM_CS
             this.label1.Text = "_________________________________________________________________________________" +
     "__________________";
             // 
+            // Btn_Reorder
+            // 
+            this.Btn_Reorder.BackColor = System.Drawing.Color.DarkBlue;
+            this.Btn_Reorder.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Btn_Reorder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Btn_Reorder.ForeColor = System.Drawing.Color.White;
+            this.Btn_Reorder.Location = new System.Drawing.Point(404, 104);
+            this.Btn_Reorder.Name = "Btn_Reorder";
+            this.Btn_Reorder.Size = new System.Drawing.Size(90, 22);
+            this.Btn_Reorder.TabIndex = 1004;
+            this.Btn_Reorder.Text = "Reordenar";
+            this.Btn_Reorder.UseVisualStyleBackColor = false;
+            this.Btn_Reorder.Click += new System.EventHandler(this.Btn_Reorder_Click);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -286,6 +301,7 @@ namespace Launcher_FiveM_CS
             this.BackgroundImage = global::Launcher_FiveM_CS.Properties.Resources.bg2;
             this.ClientSize = new System.Drawing.Size(638, 408);
             this.ControlBox = false;
+            this.Controls.Add(this.Btn_Reorder);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.Input_PassTS3);
             this.Controls.Add(this.Lbl_PassTS3);
@@ -339,6 +355,7 @@ namespace Launcher_FiveM_CS
         private System.Windows.Forms.Label Lbl_PassTS3;
         private System.Windows.Forms.TextBox Input_PassTS3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Btn_Reorder;
     }
 }
 

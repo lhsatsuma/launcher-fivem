@@ -217,6 +217,13 @@ namespace Launcher_FiveM_CS
         {
             CheckUseTS_IP();
         }
+
+        private void Btn_Reorder_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            ReorderForm ReorderForm = new ReorderForm();
+            ReorderForm.Show();
+        }
     }
     public class ServerList
     {
