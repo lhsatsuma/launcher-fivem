@@ -20,4 +20,3 @@ E:\Codigos\repos\Launcher_FiveM_CS\src\bin\Debug\Launcher FiveM.exe
 E:\Codigos\repos\Launcher_FiveM_CS\src\bin\Debug\Launcher FiveM.pdb
 E:\Codigos\repos\Launcher_FiveM_CS\src\obj\Debug\Launcher FiveM.exe
 E:\Codigos\repos\Launcher_FiveM_CS\src\obj\Debug\Launcher FiveM.pdb
-E:\Codigos\repos\Launcher_FiveM_CS\src\obj\Debug\Launcher_FiveM_CS.ReorderForm.resources

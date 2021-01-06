@@ -33,13 +33,13 @@ namespace Launcher_FiveM_CS
             {
                 for (int i = 0; i < this.ServerListTemp.ServerCfgs.Count; i++)
                 {
-                    this.Combo_ServerList.Items.Add(this.ServerListTemp.ServerCfgs[i].Name);
+                    this.List_ServerList.Items.Add(this.ServerListTemp.ServerCfgs[i].Name);
                     if (this.ServerListTemp.ServerCfgs[i].Fav)
                     {
                         fav_index = i;
                     }
                 }
-                this.Combo_ServerList.SelectedIndex = fav_index;
+                this.List_ServerList.SelectedIndex = fav_index;
             }
         }
 
@@ -55,24 +55,24 @@ namespace Launcher_FiveM_CS
             if (this.Input_AddServer.Text == "")
             {
                 MessageBox.Show("Digite um nome para o servidor!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            } else if (this.Combo_ServerList.Items.Contains(this.Input_AddServer.Text))
+            } else if (this.List_ServerList.Items.Contains(this.Input_AddServer.Text))
             {
                 MessageBox.Show("Já possui um servidor com este nome na lista!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                this.Combo_ServerList.Items.Add(this.Input_AddServer.Text);
+                this.List_ServerList.Items.Add(this.Input_AddServer.Text);
                 var ServerCfg = new ServerCfg();
                 ServerCfg.Name = this.Input_AddServer.Text;
                 this.ServerListTemp.ServerCfgs.Add(ServerCfg);
                 
                 this.Input_AddServer.Text = "";
                 this.Input_AddServer.Refresh();
-                this.Combo_ServerList.SelectedIndex = this.Combo_ServerList.Items.Count - 1;
+                this.List_ServerList.SelectedIndex = this.List_ServerList.Items.Count - 1;
             }
         }
 
-        private void Combo_ServerList_SelectedIndexChanged(object sender, EventArgs e)
+        private void List_ServerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string LabelServer = "...";
             this.Input_IP.Text = "";
@@ -80,13 +80,11 @@ namespace Launcher_FiveM_CS
             this.Input_PassTS3.Text = "";
             this.Check_UseTS3.Checked = false;
             this.Check_Fav.Checked = false;
-            if (this.Combo_ServerList.SelectedItem != null)
+            if (this.List_ServerList.SelectedItem != null)
             {
-                LabelServer = this.Combo_ServerList.SelectedItem.ToString();
-
+                LabelServer = this.List_ServerList.SelectedItem.ToString();
                 var key_found = this.ServerListTemp.getIndexOf(LabelServer);
-
-                if(key_found != -1)
+                if (key_found != -1)
                 {
                     var data_temp = this.ServerListTemp.ServerCfgs[key_found];
                     this.Input_IP.Text = data_temp.IP;
@@ -101,8 +99,6 @@ namespace Launcher_FiveM_CS
             this.Input_PassTS3.Refresh();
             this.Check_UseTS3.Refresh();
             this.Check_Fav.Refresh();
-            this.Lbl_ServerOfName.Text = LabelServer;
-            this.Lbl_ServerOfName.Refresh();
             CheckUseTS_IP();
         }
         private void SaveJson()
@@ -112,12 +108,32 @@ namespace Launcher_FiveM_CS
             var ConfigHelper = new ConfigHelper();
             ConfigHelper.SetContent(this.ServerListTemp);
         }
+
+        private void Btn_SaveConfig_Click(object sender, EventArgs e)
+        {
+            this.SaveJson();
+            MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
         private void Btn_NextStep_Click(object sender, EventArgs e)
         {
             this.Hide();
 
             LauncherForm LauncherForm = new LauncherForm();
             LauncherForm.Show();
+        }
+
+        private void Check_Fav_Click(object sender, EventArgs e)
+        {
+            var newFav = (this.Check_Fav.Checked) ? true : false;
+            if (newFav)
+            {
+                this.RemoveFavServers();
+            }
+            var key_found = this.ServerListTemp.getIndexOf(this.List_ServerList.SelectedItem.ToString());
+            if (key_found != -1)
+            {
+                this.ServerListTemp.ServerCfgs[key_found].Fav = newFav;
+            }
         }
 
         private void RemoveFavServers()
@@ -130,43 +146,32 @@ namespace Launcher_FiveM_CS
                 }
             }
         }
-        private void Btn_SaveServer_Click(object sender, EventArgs e)
+
+        private void SaveTemp(object sender, EventArgs e)
         {
-            if (this.Combo_ServerList.SelectedItem != null)
+            if (this.List_ServerList.SelectedItem != null)
             {
                 var ServerCfg = new ServerCfg();
-                ServerCfg.Name = this.Combo_ServerList.SelectedItem.ToString();
+                ServerCfg.Name = this.List_ServerList.SelectedItem.ToString();
                 ServerCfg.IP = this.Input_IP.Text;
                 ServerCfg.Use_TS3 = (this.Check_UseTS3.Checked) ? true : false;
                 ServerCfg.IP_TS3 = this.Input_IPTS3.Text;
                 ServerCfg.Pass_TS3 = this.Input_PassTS3.Text;
                 ServerCfg.Fav = (this.Check_Fav.Checked) ? true : false;
 
-                if (ServerCfg.IP == "")
+                if (ServerCfg.Fav)
                 {
-                    MessageBox.Show("Digite o IP do servidor!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.RemoveFavServers();
                 }
-                else if (ServerCfg.Use_TS3 == true && ServerCfg.IP_TS3 == "")
+
+                var key_found = this.ServerListTemp.getIndexOf(ServerCfg.Name);
+                if (key_found != -1)
                 {
-                    MessageBox.Show("Digite o IP do Team Speak 3!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.ServerListTemp.ServerCfgs[key_found] = ServerCfg;
                 }
                 else
                 {
-                    if (ServerCfg.Fav == true)
-                    {
-                        this.RemoveFavServers();
-                    }
-                    var key_found = this.ServerListTemp.getIndexOf(ServerCfg.Name);
-                    if (key_found != -1)
-                    {
-                        this.ServerListTemp.ServerCfgs[key_found] = ServerCfg;
-                    }
-                    else
-                    {
-                        this.ServerListTemp.ServerCfgs.Add(ServerCfg);
-                    }
-                    this.SaveJson();
-                    MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.ServerListTemp.ServerCfgs.Add(ServerCfg);
                 }
             }
         }
@@ -174,24 +179,24 @@ namespace Launcher_FiveM_CS
         private void Btn_RemoveServer_Click(object sender, EventArgs e)
         {
             var new_selected = -1;
-            if (this.Combo_ServerList.SelectedItem != null)
+            if (this.List_ServerList.SelectedItem != null)
             {
-                var key_found = this.ServerListTemp.getIndexOf(this.Combo_ServerList.SelectedItem.ToString());
+                var key_found = this.ServerListTemp.getIndexOf(this.List_ServerList.SelectedItem.ToString());
                 if (key_found != -1)
                 {
                     this.ServerListTemp.ServerCfgs.RemoveAt(key_found);
-                    this.Combo_ServerList.Items.RemoveAt(this.Combo_ServerList.SelectedIndex);
-                    if (this.Combo_ServerList.Items.Count > 0)
+                    this.List_ServerList.Items.RemoveAt(this.List_ServerList.SelectedIndex);
+                    if (this.List_ServerList.Items.Count > 0)
                     {
-                        new_selected = this.Combo_ServerList.Items.Count - 1;
+                        new_selected = this.List_ServerList.Items.Count - 1;
                     }
                 }
             }
-            this.Combo_ServerList.SelectedIndex = new_selected;
+            this.List_ServerList.SelectedIndex = new_selected;
 
             if(new_selected == -1)
             {
-                this.Combo_ServerList_SelectedIndexChanged(sender, e);
+                this.List_ServerList_SelectedIndexChanged(sender, e);
             }
         }
 
@@ -216,13 +221,73 @@ namespace Launcher_FiveM_CS
         private void Check_UseTS3_Click(object sender, EventArgs e)
         {
             CheckUseTS_IP();
+            this.SaveTemp(sender, e);
         }
 
-        private void Btn_Reorder_Click(object sender, EventArgs e)
+        private void Btn_Up_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            ReorderForm ReorderForm = new ReorderForm();
-            ReorderForm.Show();
+            this.ReorderList("up");
+        }
+
+        private void Btn_Down_Click(object sender, EventArgs e)
+        {
+            this.ReorderList("down");
+        }
+
+        private void ReorderList(string direction)
+        {
+            if (this.List_ServerList.SelectedIndex != -1)
+            {
+                int oldIndex = this.List_ServerList.SelectedIndex;
+
+                int newIndex = -1;
+                if (direction == "up")
+                {
+                    if (this.List_ServerList.SelectedIndex == 0)
+                    {
+                        return;
+                    }
+                    newIndex = oldIndex - 1;
+                }
+                else
+                {
+                    if (this.List_ServerList.SelectedIndex == this.ServerListTemp.ServerCfgs.Count - 1)
+                    {
+                        return;
+                    }
+                    newIndex = oldIndex + 1;
+                }
+                this.List_ServerList.Items.Clear();
+                var NewServerListTemp = new List<ServerCfg>();
+                if (this.ServerListTemp.ServerCfgs.Count > 0)
+                {
+                    for (int i = 0; i < this.ServerListTemp.ServerCfgs.Count; i++)
+                    {
+                        var newI = i;
+                        if (i == newIndex)
+                        {
+                            newI = oldIndex;
+                        }
+                        else if (i == oldIndex)
+                        {
+                            newI = newIndex;
+                        }
+
+                        this.List_ServerList.Items.Add(this.ServerListTemp.ServerCfgs[newI].Name);
+
+                        NewServerListTemp.Add(this.ServerListTemp.ServerCfgs[newI]);
+                    }
+
+                    this.List_ServerList.SelectedIndex = newIndex;
+
+                    this.ServerListTemp.ServerCfgs = NewServerListTemp;
+                }
+            }
+        }
+
+        private void Input_IP_KeyUp(object sender, KeyEventArgs e)
+        {
+            this.SaveTemp(sender, e);
         }
     }
     public class ServerList
