@@ -79,8 +79,6 @@ namespace Launcher_FiveM_CS
         {
 
             this.LoadingBar.Value = val;
-            Lbl_LoadingBar.Text = "Carregando... " + val + "%";
-            Lbl_LoadingBar.Refresh();
             await Task.Delay(200);
         }
 
@@ -91,10 +89,16 @@ namespace Launcher_FiveM_CS
         }
         public async void SetLoadingBar(int add_val)
         {
-
             SetLoadingBarVal(add_val);
             this.LoadingBar.Value = add_val;
             ChangeLoadingBarLbl("Carregando... " + add_val + "%");
+            await Task.Delay(200);
+        }
+        public async void ResetLoadingBar()
+        {
+            SetLoadingBarVal(0);
+            this.LoadingBar.Value = 0;
+            ChangeLoadingBarLbl("...");
             await Task.Delay(200);
         }
         private async void Btn_Play_Click(object sender, EventArgs e)
@@ -111,10 +115,12 @@ namespace Launcher_FiveM_CS
                 if (ServerData.IP == "")
                 {
                     this.SetLog("O IP do servidor não é válido! Vá em Configurações para alterar o IP.");
+                    ResetLoadingBar();
                 }
                 else if (ServerData.Use_TS3 == true && ServerData.IP_TS3 == "")
                 {
                     this.SetLog("O IP do servidor do TeamSpeak 3 não é valido! Vá em Configurações para alterar o IP.");
+                    ResetLoadingBar();
                 }
                 else
                 {
@@ -272,44 +278,19 @@ namespace Launcher_FiveM_CS
             int idx_combo = this.Combo_ListServers.SelectedIndex;
             if (idx_combo != -1)
             {
-                var ServerData = this.ServerList.ServerCfgs[idx_combo];
-                if (!ServerData.IP.Contains(':'))
+                this.PlayersOnline.Text = "Players Online: Carregando...";
+                this.PlayersOnline.Refresh();
+
+                var DataServer = this.ServerList.ServerCfgs[idx_combo];
+                var intPlayersOn = await Utils.CheckIP_FiveM(DataServer.IP);
+                if (intPlayersOn == -1)
                 {
-                    ServerData.IP += ":30120";
-                }
-                var response_json = "";
-                this.PlayersOnline.Text = "Players Online: .....";
-                try
-                {
-                    var client = new HttpClient();
-
-                    // Create the HttpContent for the form to be posted.
-                    var requestContent = new FormUrlEncodedContent(new[] {
-                        new KeyValuePair<string, string>("text", "This is a block of text"),
-                    });
-
-                    // Get the response.
-                    HttpResponseMessage response = await client.PostAsync("http://" + ServerData.IP + "/players.json", requestContent);
-
-                    // Get the response content.
-                    HttpContent responseContent = response.Content;
-
-                    // Get the stream of the content.
-                    using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
-                    {
-                        // Write the output.
-                        response_json += await reader.ReadToEndAsync();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
                     this.PlayersOnline.Text = "Players Online: 0 (Erro)";
                 }
-                if(response_json != "")
+                else
                 {
-                    var decoded = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(response_json);
-                    this.PlayersOnline.Text = "Players Online: " + decoded.Count;
+                    this.PlayersOnline.Text = "Players Online: "+intPlayersOn;
+
                 }
                 this.PlayersOnline.Refresh();
             }

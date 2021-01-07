@@ -8,8 +8,8 @@ namespace Launcher_FiveM_CS
 {
     public class AboutApp
     {
-        public string version = "1.4";
+        public string version = "1.4.1";
         public string authors = "BigBangDBIKE#7340";
-        public string release_date = "2021-01-06";
+        public string release_date = "2021-01-07";
     }
 }

@@ -85,7 +85,7 @@ namespace Launcher_FiveM_CS
             // 
             // Btn_About
             // 
-            this.Btn_About.BackColor = System.Drawing.Color.Brown;
+            this.Btn_About.BackColor = System.Drawing.Color.DarkBlue;
             this.Btn_About.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Btn_About.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_About.ForeColor = System.Drawing.Color.White;

@@ -1,13 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace Launcher_FiveM_CS
 {
@@ -109,10 +102,64 @@ namespace Launcher_FiveM_CS
             ConfigHelper.SetContent(this.ServerListTemp);
         }
 
-        private void Btn_SaveConfig_Click(object sender, EventArgs e)
+        private async void Btn_SaveConfig_Click(object sender, EventArgs e)
         {
+            this.Enabled = false;
+            this.Cursor = Cursors.WaitCursor;
+            if(this.ServerListTemp.ServerCfgs.Count > 0)
+            {
+                for (int i = 0; i < this.ServerListTemp.ServerCfgs.Count; i++)
+                {
+                    this.List_ServerList.SelectedIndex = i;
+                    var data = this.ServerListTemp.ServerCfgs[i];
+
+                    var isValid = true;
+                    var response = await Utils.CheckIPReach(data.IP);
+                    if (!response)
+                    {
+                        isValid = false;
+                    }
+                    else
+                    {
+                        var responseFiveM = await Utils.CheckIP_FiveM(data.IP);
+                        if(responseFiveM == -1)
+                        {
+                            isValid = false;
+                        }
+                    }
+                    if(!isValid)
+                    {
+                        var resultConfirm = MessageBox.Show("O IP do FiveM digitado para " + data.Name + " parece ser inválido.\nDeseja continuar mesmo assim?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        if(resultConfirm.ToString() == "No")
+                        {
+                            this.Enabled = true;
+                            this.Cursor = Cursors.Default;
+                            this.ActiveControl = this.Input_IP;
+                            return;
+                        }
+                    }
+                    //Validating IP for TS3 if necessary
+                    if (data.Use_TS3)
+                    {
+                        var responseTS = await Utils.CheckIPReach(data.IP_TS3);
+                        if (!responseTS)
+                        {
+                            var resultConfirm = MessageBox.Show("O IP do TS3 digitado para " + data.Name + " parece ser inválido.\nDeseja continuar mesmo assim?", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            if (resultConfirm.ToString() == "No")
+                            {
+                                this.Enabled = true;
+                                this.Cursor = Cursors.Default;
+                                this.ActiveControl = this.Input_IPTS3;
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             this.SaveJson();
             MessageBox.Show("Salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            this.Enabled = true;
+            this.Cursor = Cursors.Default;
         }
         private void Btn_NextStep_Click(object sender, EventArgs e)
         {
