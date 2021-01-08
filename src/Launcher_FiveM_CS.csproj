@@ -111,6 +111,8 @@
   <ItemGroup>
     <Content Include="circle-cropped.ico" />
     <Content Include="dbike_icon.ico" />
+    <None Include="ts3_logo.png" />
+    <None Include="fivem.png" />
     <None Include="Resources\circle-cropped.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -28,6 +28,15 @@ namespace Launcher_FiveM_CS
             InitializeComponent();
             this.local_app = Environment.GetEnvironmentVariable("LocalAppData") + "/FiveM/";
             this.LoadingBar.Maximum = 100;
+
+            this.Btn_FiveM.FlatAppearance.MouseOverBackColor = this.Btn_FiveM.BackColor;
+            this.Btn_FiveM.BackColorChanged += (s, e) => {
+                this.Btn_FiveM.FlatAppearance.MouseOverBackColor = this.Btn_FiveM.BackColor;
+            };
+            this.Btn_TS3.FlatAppearance.MouseOverBackColor = this.Btn_TS3.BackColor;
+            this.Btn_TS3.BackColorChanged += (s, e) => {
+                this.Btn_TS3.FlatAppearance.MouseOverBackColor = this.Btn_TS3.BackColor;
+            };
         }
 
         private void LauncherForm_Load(object sender, EventArgs e)
@@ -103,6 +112,7 @@ namespace Launcher_FiveM_CS
         }
         private async void Btn_Play_Click(object sender, EventArgs e)
         {
+            this.TopMost = true;
             SetLoadingBar(1);
             await Task.Delay(500);
             int idx_combo = this.Combo_ListServers.SelectedIndex;
@@ -115,11 +125,13 @@ namespace Launcher_FiveM_CS
                 if (ServerData.IP == "")
                 {
                     this.SetLog("O IP do servidor não é válido! Vá em Configurações para alterar o IP.");
+                    this.TopMost = false;
                     ResetLoadingBar();
                 }
                 else if (ServerData.Use_TS3 == true && ServerData.IP_TS3 == "")
                 {
                     this.SetLog("O IP do servidor do TeamSpeak 3 não é valido! Vá em Configurações para alterar o IP.");
+                    this.TopMost = false;
                     ResetLoadingBar();
                 }
                 else
@@ -137,30 +149,14 @@ namespace Launcher_FiveM_CS
                     this.SetLog("Abrindo o FiveM (" + ServerData.IP+")...");
                     await Task.Delay(800);
 
-                    //Start CMD.exe and pass arguments to execute Fivem.exe with connect param
-                    var cmd = new System.Diagnostics.Process();
-                    cmd.StartInfo.FileName = "cmd.exe";
-                    cmd.StartInfo.RedirectStandardInput = true;
-                    cmd.StartInfo.RedirectStandardOutput = true;
-                    cmd.StartInfo.CreateNoWindow = false;
-                    cmd.StartInfo.UseShellExecute = false;
-                    cmd.Start();
-                    if (this.local_app.Substring(0, 3) != @"E:\")
-                    {
-                        cmd.StandardInput.WriteLine(this.local_app.Substring(0, 2));
-                    }
-                    cmd.StandardInput.WriteLine("cd " + this.local_app);
-                    cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + ServerData.IP);
-                    cmd.StandardInput.Flush();
-                    cmd.StandardInput.Close();
-                    cmd.WaitForExit();
+                    this.OpenFiveM(sender, e);
 
                     if (ServerData.Use_TS3 == true)
                     {
                         SetLoadingBar(90);
                         this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
                         await Task.Delay(800);
-                        System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3+"/?nickname=LauncherDBIKE&password="+ServerData.Pass_TS3);
+                        this.OpenTS3(sender, e);
                     }
                     SetLoadingBar(100);
                     await Task.Delay(1000);
@@ -181,6 +177,114 @@ namespace Launcher_FiveM_CS
                 else
                 {
                     this.SetLog("Nenhum servidor foi configurado! Clique em Configurações para adicionar");
+                }
+            }
+        }
+        private async void OpenFiveM(object sender, EventArgs e)
+        {
+            Button originButton = sender as Button;
+            var isAsync = false;
+            if(originButton.Name == "Btn_FiveM")
+            {
+                isAsync = true;
+            }
+
+            if (isAsync)
+            {
+                this.TopMost = true;
+                SetLoadingBar(1);
+                this.SetLog("Abrindo o FiveM manualmente...");
+                await Task.Delay(500);
+            }
+
+            int idx_combo = this.Combo_ListServers.SelectedIndex;
+            if (idx_combo != -1)
+            {
+                var ServerData = this.ServerList.ServerCfgs[idx_combo];
+
+                if (isAsync)
+                {
+                    SetLoadingBar(50);
+                    this.SetLog("Abrindo a Steam...");
+                    System.Diagnostics.Process.Start("steam://open");
+                    await Task.Delay(2000);
+
+
+                    SetLoadingBar(80);
+                    this.SetLog("Abrindo o FiveM (" + ServerData.IP + ")...");
+                    await Task.Delay(800);
+                }
+
+                //Start CMD.exe and pass arguments to execute Fivem.exe with connect param
+                var cmd = new System.Diagnostics.Process();
+                cmd.StartInfo.FileName = "cmd.exe";
+                cmd.StartInfo.RedirectStandardInput = true;
+                cmd.StartInfo.RedirectStandardOutput = true;
+                cmd.StartInfo.CreateNoWindow = false;
+                cmd.StartInfo.UseShellExecute = false;
+                cmd.Start();
+                if (this.local_app.Substring(0, 3) != @"E:\")
+                {
+                    cmd.StandardInput.WriteLine(this.local_app.Substring(0, 2));
+                }
+                cmd.StandardInput.WriteLine("cd " + this.local_app);
+                cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + ServerData.IP);
+                cmd.StandardInput.Flush();
+                cmd.StandardInput.Close();
+                cmd.WaitForExit();
+
+                if (isAsync)
+                {
+                    SetLoadingBar(100);
+                    await Task.Delay(1000);
+
+                    this.SetLog("Bom jogo!");
+                    ChangeLoadingBarLbl("Concluído!");
+                }
+            }
+        }
+        private async void OpenTS3(object sender, EventArgs e)
+        {
+            Button originButton = sender as Button;
+            var isAsync = false;
+            if (originButton.Name == "Btn_TS3")
+            {
+                isAsync = true;
+            }
+            if (isAsync)
+            {
+                this.TopMost = true;
+                SetLoadingBar(1);
+                this.SetLog("Abrindo o TS3 manualmente...");
+                await Task.Delay(500);
+            }
+
+            int idx_combo = this.Combo_ListServers.SelectedIndex;
+            if (idx_combo != -1)
+            {
+                var ServerData = this.ServerList.ServerCfgs[idx_combo];
+                if (ServerData.Use_TS3 == true)
+                {
+                    if (isAsync)
+                    {
+                        SetLoadingBar(50);
+                        this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
+                    }
+                    System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3 + "/?nickname=LauncherDBIKE&password=" + ServerData.Pass_TS3);
+
+                    if (isAsync)
+                    {
+                        SetLoadingBar(100);
+                        await Task.Delay(1000);
+
+                        this.SetLog("Bom jogo!");
+                        ChangeLoadingBarLbl("Concluído!");
+                    }
+                }
+                else if (isAsync)
+                { 
+                    ResetLoadingBar();
+                    this.SetLog("A configuração para " + ServerData.Name + " não utiliza TeamSpeak 3!");
                 }
             }
         }
@@ -282,13 +386,13 @@ namespace Launcher_FiveM_CS
 
                 var DataServer = this.ServerList.ServerCfgs[idx_combo];
                 var intPlayersOn = await Utils.CheckIP_FiveM(DataServer.IP);
-                if (intPlayersOn == -1)
+                if (intPlayersOn[0].ToString() == "-1")
                 {
                     this.PlayersOnline.Text = "Players Online: 0 (Erro)";
                 }
                 else
                 {
-                    this.PlayersOnline.Text = "Players Online: "+intPlayersOn;
+                    this.PlayersOnline.Text = "Players Online: "+intPlayersOn[0]+"\nAV. Ping: "+intPlayersOn[1];
 
                 }
                 this.PlayersOnline.Refresh();

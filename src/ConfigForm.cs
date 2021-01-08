@@ -127,7 +127,7 @@ namespace Launcher_FiveM_CS
                     else
                     {
                         var responseFiveM = await Utils.CheckIP_FiveM(data.IP);
-                        if(responseFiveM == -1)
+                        if(responseFiveM[0].ToString() == "-1")
                         {
                             isValid = false;
                         }

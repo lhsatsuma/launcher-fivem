@@ -355,7 +355,6 @@ namespace Launcher_FiveM_CS
             this.Name = "ConfigForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Configurações Gerais";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

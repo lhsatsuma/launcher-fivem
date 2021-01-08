@@ -11,49 +11,66 @@ namespace Launcher_FiveM_CS
 {
     class Utils
     {
-        public static async Task<int> CheckIP_FiveM(string IPAddr)
+        public static async Task<List<object>> CheckIP_FiveM(string IPAddr)
         {
-            int return_val = 0;
-            if (String.IsNullOrEmpty(IPAddr.Trim()))
+            List<object> return_val = new List<object>();
+            return_val.Add(-1);
+            return_val.Add(-1);
+
+            if (!String.IsNullOrEmpty(IPAddr.Trim()))
             {
-                return -1;
-            }
-            if (!IPAddr.Contains(':'))
-            {
-                IPAddr += ":30120";
-            }
-            var response_json = "";
-            try
-            {
-                var client = new HttpClient();
-                client.Timeout = TimeSpan.FromSeconds(1);
-                // Create the HttpContent for the form to be posted.
-                var requestContent = new FormUrlEncodedContent(new[] {
+                if (!IPAddr.Contains(':'))
+                {
+                    IPAddr += ":30120";
+                }
+                var response_json = "";
+                try
+                {
+                    var client = new HttpClient();
+                    client.Timeout = TimeSpan.FromSeconds(1);
+                    // Create the HttpContent for the form to be posted.
+                    var requestContent = new FormUrlEncodedContent(new[] {
                     new KeyValuePair<string, string>("text", "This is a block of text"),
                 });
 
-                // Get the response.
-                HttpResponseMessage response = await client.PostAsync("http://" + IPAddr + "/players.json", requestContent);
+                    // Get the response.
+                    HttpResponseMessage response = await client.PostAsync("http://" + IPAddr + "/players.json", requestContent);
 
-                // Get the response content.
-                HttpContent responseContent = response.Content;
+                    // Get the response content.
+                    HttpContent responseContent = response.Content;
 
-                // Get the stream of the content.
-                using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
-                {
-                    // Write the output.
-                    response_json += await reader.ReadToEndAsync();
+                    // Get the stream of the content.
+                    using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
+                    {
+                        // Write the output.
+                        response_json += await reader.ReadToEndAsync();
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return_val = -1;
-            }
-            if (response_json != "")
-            {
-                var decoded = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(response_json);
-                return_val = decoded.Count;
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return_val[0] = -1;
+                }
+                if (response_json != "")
+                {
+                    var decoded = JsonConvert.DeserializeObject<Newtonsoft.Json.Linq.JArray>(response_json);
+                    return_val[0] = decoded.Count;
+                    return_val[1] = 0;
+                    for(var i = 0; i < decoded.Count; i++)
+                    {
+                        var realPing = int.Parse(decoded[i]["ping"].ToString());
+                        if(realPing == -1)
+                        {
+                            realPing = 999;
+                        }
+                        return_val[1] = int.Parse(return_val[1].ToString()) + realPing;
+                    }
+
+                    var av_ping = int.Parse(return_val[1].ToString());
+                    if (av_ping > 0) {
+                        return_val[1] = av_ping / decoded.Count;
+                    }
+                }
             }
             return return_val;
         }
