@@ -4,10 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.IO;
+using System.Net;
 using Newtonsoft.Json;
-using System.Net.NetworkInformation;
-using static System.Console;
-using System.Windows.Forms;
 
 namespace Launcher_FiveM_CS
 {
@@ -59,48 +57,46 @@ namespace Launcher_FiveM_CS
             }
             return return_val;
         }
-        public static async Task<bool> CheckIPReach(string IP)
+        public static bool newCheckIPReach(string IP)
         {
-            var return_bool = false;
-            if (!String.IsNullOrEmpty(IP))
-            {
-                if (IP.Contains(':'))
-                {
-                    var IP_Split = new List<String>(IP.Split(new char[] { ':' }));
-                    IP = IP_Split[0];
-                }
-                    try
-                {
-                    Ping pinger = new Ping();
-                    
-                    PingReply resposta = await pinger.SendPingAsync(IP, 1);
-                    if (!String.IsNullOrEmpty(resposta.Address.ToString()))
-                    {
-                        return_bool = true;
-                    }
-                }
-                catch
-                {
-                    //Don't do nothing
-                }
-            }
-            return return_bool;
-        }
-
-        private static void pinger_PingCompleted(object sender, PingCompletedEventArgs e)
-        {
+            var int_return = false;
             try
             {
-                PingReply resposta = e.Reply;
-                if (e.Cancelled)
+                //The IP or Host Entry to lookup
+                IPHostEntry ipEntry;
+                //The IP Address Array. Holds an array of resolved Host Names.
+                IPAddress[] ipAddr;
+                //Value of alpha characters
+                char[] alpha = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ-".ToCharArray();
+                //If alpha characters exist we know we are doing a forward lookup
+                if (IP.IndexOfAny(alpha) != -1)
                 {
-                    WriteLine($"Ping para {e.UserState.ToString()} foi cancelado");
+                    ipEntry = Dns.GetHostByName(IP);
+                    ipAddr = ipEntry.AddressList;
+                    Console.WriteLine("\nHost Name : " + IP);
+                    int i = 0;
+                    int len = ipAddr.Length;
+                    for (i = 0; i < len; i++)
+                    {
+                        Console.WriteLine("Address {0} : {1} ", i, ipAddr[i].ToString());
+                    }
+                    int_return = true;
                 }
             }
-            catch (Exception ex)
+            catch(System.Net.Sockets.SocketException se)
             {
-                WriteLine($"Exception lançada durante o ping : {ex.Message}");
+                // The system had problems resolving the address passed
+                if(se.Message.ToString().IndexOf("O nome solicitado é válido") != -1)
+                {
+                    int_return = true;
+                }
             }
+            catch(System.FormatException fe)
+            {
+                // Non unicode chars were probably passed
+                Console.WriteLine(fe.Message.ToString());
+            }
+            return int_return;
         }
     }
 }

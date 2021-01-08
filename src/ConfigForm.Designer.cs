@@ -226,10 +226,12 @@ namespace Launcher_FiveM_CS
             // 
             // List_ServerList
             // 
+            this.List_ServerList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.List_ServerList.FormattingEnabled = true;
+            this.List_ServerList.ItemHeight = 16;
             this.List_ServerList.Location = new System.Drawing.Point(21, 171);
             this.List_ServerList.Name = "List_ServerList";
-            this.List_ServerList.Size = new System.Drawing.Size(237, 225);
+            this.List_ServerList.Size = new System.Drawing.Size(237, 212);
             this.List_ServerList.TabIndex = 1004;
             this.List_ServerList.SelectedIndexChanged += new System.EventHandler(this.List_ServerList_SelectedIndexChanged);
             // 

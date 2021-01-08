@@ -160,7 +160,7 @@ namespace Launcher_FiveM_CS
                         SetLoadingBar(90);
                         this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
                         await Task.Delay(800);
-                        System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3+"/?nickname=LauncherFiveM&password="+ServerData.Pass_TS3);
+                        System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3+"/?nickname=LauncherDBIKE&password="+ServerData.Pass_TS3);
                     }
                     SetLoadingBar(100);
                     await Task.Delay(1000);
@@ -263,12 +263,11 @@ namespace Launcher_FiveM_CS
 
         private void Btn_About_Click(object sender, EventArgs e)
         {
-            AboutApp AboutApp = new AboutApp();
             var msg = "";
             msg += "Versão: " + AboutApp.version;
-            msg += "\r\nAuthor: " + AboutApp.authors;
-            msg += "\r\nRelease Date: " + AboutApp.release_date;
-            msg += "\r\n\r\nWindows 10 Support only!";
+            msg += "\nAuthor: " + AboutApp.authors;
+            msg += "\nRelease Date: " + AboutApp.release_date;
+            msg += "\n\nWindows 10 Support only!";
 
             MessageBox.Show(msg, "Sobre", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
