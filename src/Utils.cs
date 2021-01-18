@@ -76,9 +76,14 @@ namespace Launcher_FiveM_CS
         }
         public static bool newCheckIPReach(string IP)
         {
-            var int_return = false;
+            var bool_return = false;
             try
             {
+                if (IP.Contains(':'))
+                {
+                    string[] splitIP = IP.Split(':');
+                    IP = splitIP[0];
+                }
                 //The IP or Host Entry to lookup
                 IPHostEntry ipEntry;
                 //The IP Address Array. Holds an array of resolved Host Names.
@@ -97,23 +102,37 @@ namespace Launcher_FiveM_CS
                     {
                         Console.WriteLine("Address {0} : {1} ", i, ipAddr[i].ToString());
                     }
-                    int_return = true;
+                    bool_return = true;
+                }
+                else
+                {
+                    if (!String.IsNullOrWhiteSpace(IP))
+                    {
+                        string[] splitValues = IP.Split('.');
+                        if (splitValues.Length == 4)
+                        {
+                            byte tempForParsing;
+                            if (splitValues.All(r => byte.TryParse(r, out tempForParsing)))
+                            {
+                                bool_return = true;
+                            }
+                        }
+                    }
                 }
             }
             catch(System.Net.Sockets.SocketException se)
             {
                 // The system had problems resolving the address passed
-                if(se.Message.ToString().IndexOf("O nome solicitado é válido") != -1)
+                if (se.Message.ToString().IndexOf("O nome solicitado é válido") != -1)
                 {
-                    int_return = true;
+                    bool_return = true;
                 }
             }
             catch(System.FormatException fe)
             {
-                // Non unicode chars were probably passed
                 Console.WriteLine(fe.Message.ToString());
             }
-            return int_return;
+            return bool_return;
         }
     }
 }

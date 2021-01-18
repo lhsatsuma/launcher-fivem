@@ -4,25 +4,16 @@
  * A vida é uma caixinha de surpresas...
  */
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using System.Threading;
 using System.IO;
-using System.Collections;
-using System.Net.Http;
 namespace Launcher_FiveM_CS
 {
     public partial class LauncherForm : Form
     {
         public ServerList ServerList { get; set;}
         public string local_app;
+        public ServerCfg srvSelected { get; set; }
         public LauncherForm()
         {
             InitializeComponent();
@@ -139,23 +130,14 @@ namespace Launcher_FiveM_CS
                     SetLoadingBar(49);
                     await this.clearCacheApp(true);
 
-                    SetLoadingBar(70);
-                    this.SetLog("Abrindo a Steam...");
-                    System.Diagnostics.Process.Start("steam://open");
-                    await Task.Delay(2000);
-
-
                     SetLoadingBar(80);
-                    this.SetLog("Abrindo o FiveM (" + ServerData.IP+")...");
-                    await Task.Delay(800);
 
-                    this.OpenFiveM(sender, e);
+                    await this.OpenFiveM(sender, e);
+                    await Task.Delay(2000);
 
                     if (ServerData.Use_TS3 == true)
                     {
                         SetLoadingBar(90);
-                        this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
-                        await Task.Delay(800);
                         this.OpenTS3(sender, e);
                     }
                     SetLoadingBar(100);
@@ -180,41 +162,23 @@ namespace Launcher_FiveM_CS
                 }
             }
         }
-        private async void OpenFiveM(object sender, EventArgs e)
+        private void OpenSteam(object sender, EventArgs e)
         {
-            Button originButton = sender as Button;
-            var isAsync = false;
-            if(originButton.Name == "Btn_FiveM")
+            this.SetLog("Abrindo a Steam...");
+            System.Diagnostics.Process.Start("steam://open");
+        }
+        private async void OpenFiveMSingle(object sender, EventArgs e)
+        {
+            await this.OpenFiveM(sender, e);
+        }
+        private async Task<int> OpenFiveM(object sender, EventArgs e)
+        {
+            int return_val = 0;
+            if (this.srvSelected != null)
             {
-                isAsync = true;
-            }
-
-            if (isAsync)
-            {
-                this.TopMost = true;
-                SetLoadingBar(1);
-                this.SetLog("Abrindo o FiveM manualmente...");
-                await Task.Delay(500);
-            }
-
-            int idx_combo = this.Combo_ListServers.SelectedIndex;
-            if (idx_combo != -1)
-            {
-                var ServerData = this.ServerList.ServerCfgs[idx_combo];
-
-                if (isAsync)
-                {
-                    SetLoadingBar(50);
-                    this.SetLog("Abrindo a Steam...");
-                    System.Diagnostics.Process.Start("steam://open");
-                    await Task.Delay(2000);
-
-
-                    SetLoadingBar(80);
-                    this.SetLog("Abrindo o FiveM (" + ServerData.IP + ")...");
-                    await Task.Delay(800);
-                }
-
+                this.OpenSteam(sender, e);
+                await Task.Delay(2000);
+                this.SetLog("Abrindo o FiveM (" + this.srvSelected.IP + ")...");
                 //Start CMD.exe and pass arguments to execute Fivem.exe with connect param
                 var cmd = new System.Diagnostics.Process();
                 cmd.StartInfo.FileName = "cmd.exe";
@@ -228,64 +192,21 @@ namespace Launcher_FiveM_CS
                     cmd.StandardInput.WriteLine(this.local_app.Substring(0, 2));
                 }
                 cmd.StandardInput.WriteLine("cd " + this.local_app);
-                cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + ServerData.IP);
+                cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + this.srvSelected.IP);
                 cmd.StandardInput.Flush();
                 cmd.StandardInput.Close();
                 cmd.WaitForExit();
-
-                if (isAsync)
-                {
-                    SetLoadingBar(100);
-                    await Task.Delay(1000);
-
-                    this.SetLog("Bom jogo!");
-                    ChangeLoadingBarLbl("Concluído!");
-                }
+                return_val = 1;
             }
+            return return_val;
         }
-        private async void OpenTS3(object sender, EventArgs e)
+        private void OpenTS3(object sender, EventArgs e)
         {
-            Button originButton = sender as Button;
-            var isAsync = false;
-            if (originButton.Name == "Btn_TS3")
+            if (this.srvSelected != null
+                && this.srvSelected.Use_TS3 == true)
             {
-                isAsync = true;
-            }
-            if (isAsync)
-            {
-                this.TopMost = true;
-                SetLoadingBar(1);
-                this.SetLog("Abrindo o TS3 manualmente...");
-                await Task.Delay(500);
-            }
-
-            int idx_combo = this.Combo_ListServers.SelectedIndex;
-            if (idx_combo != -1)
-            {
-                var ServerData = this.ServerList.ServerCfgs[idx_combo];
-                if (ServerData.Use_TS3 == true)
-                {
-                    if (isAsync)
-                    {
-                        SetLoadingBar(50);
-                        this.SetLog("Abrindo o TS3 (" + ServerData.IP_TS3 + ")...");
-                    }
-                    System.Diagnostics.Process.Start("ts3server://" + ServerData.IP_TS3 + "/?nickname=LauncherDBIKE&password=" + ServerData.Pass_TS3);
-
-                    if (isAsync)
-                    {
-                        SetLoadingBar(100);
-                        await Task.Delay(1000);
-
-                        this.SetLog("Bom jogo!");
-                        ChangeLoadingBarLbl("Concluído!");
-                    }
-                }
-                else if (isAsync)
-                { 
-                    ResetLoadingBar();
-                    this.SetLog("A configuração para " + ServerData.Name + " não utiliza TeamSpeak 3!");
-                }
+                this.SetLog("Abrindo o TS3 (" + this.srvSelected.IP_TS3 + ")...");
+                System.Diagnostics.Process.Start("ts3server://" + this.srvSelected.IP_TS3 + "/?nickname=LauncherDBIKE&password=" +this.srvSelected.Pass_TS3);
             }
         }
 
@@ -381,11 +302,11 @@ namespace Launcher_FiveM_CS
             int idx_combo = this.Combo_ListServers.SelectedIndex;
             if (idx_combo != -1)
             {
+                this.srvSelected = this.ServerList.ServerCfgs[idx_combo];
                 this.PlayersOnline.Text = "Players Online: Carregando...";
                 this.PlayersOnline.Refresh();
 
-                var DataServer = this.ServerList.ServerCfgs[idx_combo];
-                var intPlayersOn = await Utils.CheckIP_FiveM(DataServer.IP);
+                var intPlayersOn = await Utils.CheckIP_FiveM(this.srvSelected.IP);
                 if (intPlayersOn[0].ToString() == "-1")
                 {
                     this.PlayersOnline.Text = "Players Online: 0 (Erro)";
@@ -397,17 +318,10 @@ namespace Launcher_FiveM_CS
                 }
                 this.PlayersOnline.Refresh();
             }
+            else
+            {
+                this.srvSelected = null;
+            }
         }
-    }
-    public class PlayerOnline
-    {
-        public string endpoint { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-        public string ping { get; set; }
-    }
-    public class PlayersOnline
-    {
-        public List<PlayerOnline> Players { get; set; }
     }
 }

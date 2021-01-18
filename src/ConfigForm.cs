@@ -106,7 +106,8 @@ namespace Launcher_FiveM_CS
         {
             this.Enabled = false;
             this.Cursor = Cursors.WaitCursor;
-            if(this.ServerListTemp.ServerCfgs.Count > 0)
+            this.ignoreErrors = false;
+            if (this.ServerListTemp.ServerCfgs.Count > 0)
             {
                 for (int i = 0; i < this.ServerListTemp.ServerCfgs.Count; i++)
                 {
@@ -129,7 +130,7 @@ namespace Launcher_FiveM_CS
                         var responseFiveM = await Utils.CheckIP_FiveM(data.IP);
                         if(responseFiveM[0].ToString() == "-1")
                         {
-                            isValid = false;
+                            //isValid = false;
                         }
                     }
                     if(!isValid)

@@ -171,7 +171,7 @@ namespace Launcher_FiveM_CS
             this.Btn_FiveM.TabStop = false;
             this.Btn_FiveM.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.Btn_FiveM.UseVisualStyleBackColor = false;
-            this.Btn_FiveM.Click += new System.EventHandler(this.OpenFiveM);
+            this.Btn_FiveM.Click += new System.EventHandler(this.OpenFiveMSingle);
             // 
             // Btn_TS3
             // 
