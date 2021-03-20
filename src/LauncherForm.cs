@@ -180,22 +180,25 @@ namespace Launcher_FiveM_CS
                 await Task.Delay(2000);
                 this.SetLog("Abrindo o FiveM (" + this.srvSelected.IP + ")...");
                 //Start CMD.exe and pass arguments to execute Fivem.exe with connect param
-                var cmd = new System.Diagnostics.Process();
-                cmd.StartInfo.FileName = "cmd.exe";
-                cmd.StartInfo.RedirectStandardInput = true;
-                cmd.StartInfo.RedirectStandardOutput = true;
-                cmd.StartInfo.CreateNoWindow = false;
-                cmd.StartInfo.UseShellExecute = false;
-                cmd.Start();
-                if (this.local_app.Substring(0, 3) != @"E:\")
-                {
-                    cmd.StandardInput.WriteLine(this.local_app.Substring(0, 2));
-                }
-                cmd.StandardInput.WriteLine("cd " + this.local_app);
-                cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + this.srvSelected.IP);
-                cmd.StandardInput.Flush();
-                cmd.StandardInput.Close();
-                cmd.WaitForExit();
+                //var cmd = new System.Diagnostics.Process();
+                //cmd.StartInfo.FileName = "cmd.exe";
+                //cmd.StartInfo.RedirectStandardInput = true;
+                //cmd.StartInfo.RedirectStandardOutput = true;
+                //cmd.StartInfo.CreateNoWindow = false;
+                //cmd.StartInfo.UseShellExecute = false;
+                //cmd.Start();
+                //if (this.local_app.Substring(0, 3) != @"E:\")
+                //{
+                //    cmd.StandardInput.WriteLine(this.local_app.Substring(0, 2));
+                //}
+                //cmd.StandardInput.WriteLine("cd " + this.local_app);
+                //cmd.StandardInput.WriteLine(@".\FiveM.exe +connect " + this.srvSelected.IP);
+                //cmd.StandardInput.Flush();
+                //cmd.StandardInput.Close();
+                //cmd.WaitForExit();
+
+
+                System.Diagnostics.Process.Start("fivem://connect/" + this.srvSelected.IP);
                 return_val = 1;
             }
             return return_val;
